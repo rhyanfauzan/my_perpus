@@ -157,7 +157,7 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                           context: context,
                           type: AlertType.error,
                           title: "Gagal Konfirmasi",
-                          desc: "Masukan No Hp terlebih dahulu!",
+                          desc: "Masukan Nomor Panggil terlebih dahulu!",
                           buttons: [
                             DialogButton(
                               child: const Text(
