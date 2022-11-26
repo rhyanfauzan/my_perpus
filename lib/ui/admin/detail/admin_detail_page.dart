@@ -109,23 +109,27 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                                 .toString())),
                         const SizedBox(height: 15),
                         if (valueAdmin.detailPeminjaman.status == 0)
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              const VerticalTitleValue(
-                                  title: 'Nomor Panggil',
-                                  value:
-                                      'Masukan nomor panggil terlebih dahulu'),
-                              InputFieldRounded(
-                                label: "Masukan Nomor Panggil",
-                                hint: "Masukan Nomor Panggil",
-                                onChange: (val) {
-                                  noHp = val;
-                                },
-                                secureText: false,
-                              ),
-                            ],
-                          ),
+                          for (int indeks = 0;
+                              indeks <
+                                  valueAdmin.detailPeminjaman.bukuModel.length;
+                              indeks++)
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                VerticalTitleValue(
+                                    title: 'Nomor Panggil [$indeks+1]',
+                                    value:
+                                        '[$indeks+1] Buku ${valueAdmin.detailPeminjaman.bukuModel[indeks].judul}'),
+                                InputFieldRounded(
+                                  label: "Masukan Nomor Panggil",
+                                  hint: "Masukan Nomor Panggil",
+                                  onChange: (val) {
+                                    noHp = val;
+                                  },
+                                  secureText: false,
+                                ),
+                              ],
+                            ),
                         if (valueAdmin.detailPeminjaman.status != 0)
                           VerticalTitleValue(
                               title: 'Nomor Panggil',

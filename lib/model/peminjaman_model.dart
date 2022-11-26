@@ -12,6 +12,7 @@ class PeminjamanModel {
   DateTime? tanggalPeminjaman;
   DateTime? tanggalPengembalian;
   String? noHp;
+  // List<String>? noHp;
   int perpanjang;
 
   PeminjamanModel(

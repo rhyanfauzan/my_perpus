@@ -22,14 +22,14 @@ class UserKeranjangPage extends StatefulWidget {
 }
 
 class _UserKeranjangPageState extends State<UserKeranjangPage> {
-
-  DateTime? tanggalPeminjaman = null;
+  // DateTime? tanggalPeminjaman = null;
+  DateTime? tanggalPeminjaman = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child:
-      Consumer<PeminjamanProvider>(builder: (context, valuePeminjaman, _) {
+          Consumer<PeminjamanProvider>(builder: (context, valuePeminjaman, _) {
         return Scaffold(
           appBar: AppBar(
             backgroundColor: Colors.white,
@@ -60,10 +60,10 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
                           ),
                           GestureDetector(
                             onTap: () => Provider.of<PeminjamanProvider>(
-                                context,
-                                listen: false)
+                                    context,
+                                    listen: false)
                                 .hapusItemDalamKeranjang(
-                                valuePeminjaman.keranjang[index].id!),
+                                    valuePeminjaman.keranjang[index].id!),
                             child: Icon(
                               Icons.delete,
                               size: 30,
@@ -75,43 +75,44 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
                   },
                 ),
               ),
-        if (valuePeminjaman.keranjang.isNotEmpty)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
-                child: GestureDetector(
-                  onTap: () {
-                    DatePicker.showDatePicker(
-                      context,
-                      onChanged: (val) {},
-                      onConfirm: (val) {
-                        setState(() {
-                          tanggalPeminjaman = val;
-                        });
-                      },
-                    );
-                  },
-                  child: Container(
-                    width: double.infinity,
-                    padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
-                    decoration: kRoundedContainer,
-                    child: Text(
-                        tanggalPeminjaman != null
-                            ? "${tanggalPeminjaman?.day}/${tanggalPeminjaman?.month}/${tanggalPeminjaman?.year}"
-                            : "Tanggal Peminjaman",
-                        style: TextStyle(
-                            color: ColorPalette.generalPrimaryColor,
-                            fontSize: 16)),
+              if (valuePeminjaman.keranjang.isNotEmpty)
+                // Padding(
+                //   padding: const EdgeInsets.symmetric(horizontal: 20,vertical: 20),
+                //   child: GestureDetector(
+                //     onTap: () {
+                //       DatePicker.showDatePicker(
+                //         context,
+                //         onChanged: (val) {},
+                //         onConfirm: (val) {
+                //           setState(() {
+                //             tanggalPeminjaman = val;
+                //           });
+                //         },
+                //       );
+                //     },
+                //     child: Container(
+                //       width: double.infinity,
+                //       padding: EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+                //       decoration: kRoundedContainer,
+                //       child: Text(
+                //           tanggalPeminjaman != null
+                //               ? "${tanggalPeminjaman?.day}/${tanggalPeminjaman?.month}/${tanggalPeminjaman?.year}"
+                //               : "Tanggal Peminjaman",
+                //           style: TextStyle(
+                //               color: ColorPalette.generalPrimaryColor,
+                //               fontSize: 16)),
+                //     ),
+                //   ),
+                // ),
+                if (valuePeminjaman.keranjang.isNotEmpty &&
+                    tanggalPeminjaman != null)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    child: ButtonRounded(
+                      text: "Konfirmasi Peminjaman",
+                      onPressed: () => doPeminjaman(context),
+                    ),
                   ),
-                ),
-              ),
-              if (valuePeminjaman.keranjang.isNotEmpty && tanggalPeminjaman!=null)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20),
-                  child: ButtonRounded(
-                    text: "Konfirmasi Peminjaman",
-                    onPressed: () => doPeminjaman(context),
-                  ),
-                ),
             ],
           ),
         );
@@ -121,13 +122,13 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
 
   doPeminjaman(BuildContext context) async {
     EasyLoading.show(status: "Loading");
-    var user = Provider.of<AuthProvider>(context,listen: false).user;
+    var user = Provider.of<AuthProvider>(context, listen: false).user;
     var result = await Provider.of<PeminjamanProvider>(context, listen: false)
-        .doPeminjaman(user,tanggalPeminjaman!);
-    await Provider.of<AuthProvider>(context,listen: false).userIsOrderBook();
+        .doPeminjaman(user, tanggalPeminjaman!);
+    await Provider.of<AuthProvider>(context, listen: false).userIsOrderBook();
 
     result.fold(
-          (l) {
+      (l) {
         EasyLoading.dismiss();
         Alert(
           context: context,
@@ -147,7 +148,7 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
           ],
         ).show();
       },
-          (r)async {
+      (r) async {
         EasyLoading.dismiss();
         Alert(
           context: context,
@@ -160,7 +161,7 @@ class _UserKeranjangPageState extends State<UserKeranjangPage> {
                 "Close",
                 style: TextStyle(color: Colors.white, fontSize: 20),
               ),
-              onPressed: (){
+              onPressed: () {
                 Navigator.pop(context);
                 Get.back();
               },
