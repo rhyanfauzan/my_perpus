@@ -115,7 +115,7 @@ class _AdminDetailPageState extends State<AdminDetailPage> {
                               const VerticalTitleValue(
                                   title: 'Nomor Panggil',
                                   value:
-                                      'Masukan nomor panggil terlebih dahulu'),
+                                      'Masukan nomor panggil terlebih dahulu!'),
                               InputFieldRounded(
                                 label: "Masukan Nomor Panggil",
                                 hint: "Masukan Nomor Panggil",
